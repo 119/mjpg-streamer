@@ -1,1 +1,1 @@
-make CC=arm-linux-gnueabihf-gcc CFLAGS="-I/home/k/1-git/4-mjpg-streamer/mjpg-streamer/2-lib/jpeg-6b -I./ -I/home/k/1-git/4-mjpg-streamer/mjpg-streamer/2-lib/build-RPi -L/home/k/1-git/4-mjpg-streamer/mjpg-streamer/2-lib/build-RPi"
+make CC=arm-linux-gnueabihf-gcc CFLAGS=" -O1 -DLINUX -D_GNU_SOURCE -Wall -shared -fPIC -I/home/k/1-git/4-mjpg-streamer/mjpg-streamer/2-lib/jpeg-6b -I./ -I/home/k/1-git/4-mjpg-streamer/mjpg-streamer/2-lib/build-RPi -L/home/k/1-git/4-mjpg-streamer/mjpg-streamer/2-lib/build-RPi"
