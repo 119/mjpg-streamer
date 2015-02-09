@@ -38,7 +38,7 @@
 #include <getopt.h>
 #include <pthread.h>
 #include <syslog.h>
-
+#include <stdarg.h>
 #include "../../utils.h"
 //#include "../../mjpg_streamer.h"
 #include "v4l2uvc.h" // this header will includes the ../../mjpg_streamer.h
@@ -49,6 +49,26 @@
 
 #define INPUT_PLUGIN_NAME "UVC webcam grabber"
 
+/* 
+level 0: must print fatal
+level 1: err
+level 2: warn
+level 3: info
+level 4: debug
+level 5: data
+*/
+static unsigned int g_debuglevel = 4;
+void debug_printf(int level,const char *fmt, ...)
+{
+	if ( g_debuglevel >= level )
+	{
+	    va_list arg;
+
+	    va_start(arg, fmt);
+	    vfprintf(stdout, fmt, arg);
+	    va_end(arg);
+	}
+}
 /*
  * UVC resolutions mentioned at: (at least for some webcams)
  * http://www.quickcamteam.net/hcl/frame-format-matrix/
@@ -309,6 +329,7 @@ int input_run(int id)
 
     DBG("launching camera thread #%02d\n", id);
     /* create thread and pass context to thread function */
+    debug_printf(4,"trace_func: [%s:%d %s] I will call cam_thread\n", __FILE__,__LINE__,__FUNCTION__);
     pthread_create(&(cams[id].threadID), NULL, cam_thread, &(cams[id]));
     pthread_detach(cams[id].threadID);
     return 0;
